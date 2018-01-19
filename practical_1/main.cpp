@@ -32,9 +32,9 @@ void Load() {
 	ball.setOrigin(ballRadius / 2, ballRadius / 2);
 	// reset paddle position 
 	paddles[0].setPosition(10 + paddleSize.x / 2, gameHeight / 2);
-	paddles[1].setPosition(...);
+	paddles[1].setPosition(gameWidth - paddleSize.x - 10, gameHeight / 2);
 	// reset Ball position
-	ball.setPosition(...);
+	ball.setPosition(gameWidth / 2, gameHeight / 2);
 
 	ballVelocity = { (server ? 100.0f : -100.0f), 60.0f };
 }
@@ -43,9 +43,9 @@ void reset()
 {
 	// reset paddle position 
 	paddles[0].setPosition(10 + paddleSize.x / 2, gameHeight / 2);
-	paddles[1].setPosition(...);
+	paddles[1].setPosition(gameWidth - paddleSize.x - 10, gameHeight / 2);
 	// reset Ball position
-	ball.setPosition(...);
+	ball.setPosition(gameWidth / 2, gameHeight / 2);
 
 	ballVelocity = { (server ? 100.0f : -100.0f), 60.0f };
 }
@@ -102,6 +102,21 @@ void Update(RenderWindow &window) {
 		// left wall
 		reset();
 	}
+	else if (
+		// ball is inline or behind paddle
+		bx < paddleSize.x &&
+		// AND ball is below top edge of paddle 
+		by > paddles[0].getPosition().y - (paddleSize.y * 0.5) &&
+		// AND ball is above bottom edge of paddle 
+		by < paddles[0].getPosition().y + (paddleSize.y * 0.5)
+		) {
+		// bounce of left paddle 
+	}
+	else if (...) {
+		// bounce of right paddle
+	}
+			
+	
 
 }
 void Render(RenderWindow &window) {
