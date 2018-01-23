@@ -21,6 +21,17 @@ bool server = false;
 CircleShape ball;
 RectangleShape paddles[2];
 
+void reset()
+{
+	// reset paddle position 
+	paddles[0].setPosition(10 + paddleSize.x / 2, gameHeight / 2);
+	paddles[1].setPosition(gameWidth - paddleSize.x - 10, gameHeight / 2);
+	// reset Ball position
+	ball.setPosition(gameWidth / 2, gameHeight / 2);
+
+	ballVelocity = { server ? 100.0f : -100.0f, 60.0f };
+}
+
 void Load() {
 	// Set size and origin of paddles
 	for (auto &p : paddles) {
@@ -30,25 +41,10 @@ void Load() {
 	// Set size and origin of ball
 	ball.setRadius(ballRadius - 3);
 	ball.setOrigin(ballRadius / 2, ballRadius / 2);
-	// reset paddle position 
-	paddles[0].setPosition(10 + paddleSize.x / 2, gameHeight / 2);
-	paddles[1].setPosition(gameWidth - paddleSize.x - 10, gameHeight / 2);
-	// reset Ball position
-	ball.setPosition(gameWidth / 2, gameHeight / 2);
-
-	ballVelocity = { (server ? 100.0f : -100.0f), 60.0f };
+	
+	reset();
 }
 
-void reset()
-{
-	// reset paddle position 
-	paddles[0].setPosition(10 + paddleSize.x / 2, gameHeight / 2);
-	paddles[1].setPosition(gameWidth - paddleSize.x - 10, gameHeight / 2);
-	// reset Ball position
-	ball.setPosition(gameWidth / 2, gameHeight / 2);
-
-	ballVelocity = { (server ? 100.0f : -100.0f), 60.0f };
-}
 void Update(RenderWindow &window) {
 	// Reset clock, recalculate deltatime
 	static Clock clock;
@@ -68,20 +64,29 @@ void Update(RenderWindow &window) {
 	}
 
 	// handle paddle movement 
-	float direction = 0.0f;
+	float leftdirection = 0.0f;
+	float rightdirection = 0.0f;
 	if (Keyboard::isKeyPressed(controls[0])) {
-		direction--;
+		leftdirection--;
 	}
 	if (Keyboard::isKeyPressed(controls[1])) {
-		direction++;
+		leftdirection++;
 	}
-	paddles[0].move(0, direction * paddleSpeed * dt);
+	if (Keyboard::isKeyPressed(controls[2])) {
+		rightdirection--;
+	}
+	if (Keyboard::isKeyPressed(controls[3])) {
+		rightdirection++;
+	}
+	paddles[0].move(0, leftdirection * paddleSpeed * dt);
+	paddles[1].move(0, rightdirection * paddleSpeed * dt);
 
 	ball.move(ballVelocity * dt);
 
 	// check ball collision
 	const float bx = ball.getPosition().x;
 	const float by = ball.getPosition().y;
+
 	if (by > gameHeight) {
 		// bottom wall
 		ballVelocity.x *= 1.1f;
@@ -104,16 +109,27 @@ void Update(RenderWindow &window) {
 	}
 	else if (
 		// ball is inline or behind paddle
-		bx < paddleSize.x &&
+		bx < paddles[0].getPosition().x &&
 		// AND ball is below top edge of paddle 
 		by > paddles[0].getPosition().y - (paddleSize.y * 0.5) &&
 		// AND ball is above bottom edge of paddle 
 		by < paddles[0].getPosition().y + (paddleSize.y * 0.5)
 		) {
 		// bounce of left paddle 
+		ballVelocity.x *= -1.1f;
+		ball.move(1, 0);
 	}
-	else if (...) {
-		// bounce of right paddle
+	else if (
+		// ball is inline or behind paddle
+		bx > paddles[1].getPosition().x &&
+		// AND ball is below top edge of paddle 
+		by > paddles[1].getPosition().y - (paddleSize.y * 0.5) &&
+		// AND ball is above bottom edge of paddle 
+		by < paddles[1].getPosition().y + (paddleSize.y * 0.5)
+		) {
+		// bounce of right paddle 
+		ballVelocity.x *= -1.1f;
+		ball.move(-1, 0);
 	}
 			
 	
