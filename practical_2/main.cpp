@@ -6,8 +6,6 @@
 using namespace sf;
 using namespace std;
 
-
-//...
 std::vector<Ship *> ships;
 
 void Load() {
