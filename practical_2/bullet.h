@@ -8,7 +8,7 @@ public:
 	// Renders ALL bullets
 	static void Render(sf::RenderWindow &window);
 	// Choose an inactive bullet and use it
-	static Fire(const sf::Vector2f &pos, const bool mode);
+	static void Fire(const sf::Vector2f &pos, const bool mode);
 
 	~Bullet() = default;
 protected:

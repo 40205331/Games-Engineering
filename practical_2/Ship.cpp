@@ -45,6 +45,14 @@ void Invader::Update(const float &dt) {
 			ships[i]->move(0, 24);
 			}
 	}
+
+	static float firetime = 0.0f;
+	firetime -= dt;
+
+	if (firetime <= 0 && rand() % 100 == 0) {
+		Bullet::Fire(getPosition(), true);
+		firetime = 4.0f + (rand() % 60);
+	}
 }
 
 Player::Player() : Ship(IntRect(160, 32, 32, 32)) {
@@ -64,10 +72,18 @@ void Player::Update(const float &dt) {
 	}
 	// Bullet
 	static vector<Bullet*> bullets;
-	if (Keyboard::isKeyPressed(controls[2])) {
-		bullets.push_back(new Bullet(getPosition(), false));
-	}
+	
+	static float firetime = 0.0f;
+	firetime -= dt;
+
+	if (firetime <= 0 && Keyboard::isKeyPressed(controls[2])) {
+		Bullet::Fire(getPosition(), false);
+		firetime = 0.7f;
+	} 
+
 	for (const auto s : bullets) {
 		s->Update(dt);
 	}
+
+	
 }

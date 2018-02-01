@@ -1,12 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include "ship.h"
 #include "game.h"
+#include "bullet.h"
 #include <iostream>
 
 using namespace sf;
 using namespace std;
 
 std::vector<Ship *> ships;
+sf::Texture spritesheet;
+extern Ship* player;
 
 void Load() {
 	Invader* inv = new Invader(sf::IntRect(0, 0, 32, 32), { 100, 100 });
