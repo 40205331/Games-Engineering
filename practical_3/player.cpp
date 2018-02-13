@@ -11,24 +11,26 @@ const Keyboard::Key controls[4] = {
 
 void Player::update(double dt) {
 	// Move in four directions based on keys
-	float direction = 0.0f;
+	
+	// Move Left
 	if (Keyboard::isKeyPressed(controls[0])) {
-		direction--;
-	}
-	// Move right
-	if (Keyboard::isKeyPressed(controls[1])) {
-		direction++;
+		Player::_position.x -= Player::_speed * (float)dt;
 	}
 
-	/*
-	if (Keyboard::isKeyPressed(controls[2])) {
-		direction--;
-	}
 	// Move right
-	if (Keyboard::isKeyPressed(controls[3])) {
-		direction++;
+	if (Keyboard::isKeyPressed(controls[1])) {
+		Player::_position.x += Player::_speed * (float)dt;
 	}
-	*/
+	
+	// Move up
+	if (Keyboard::isKeyPressed(controls[2])) {
+		Player::_position.y -= Player::_speed * (float)dt;
+	}
+	// Move down
+	if (Keyboard::isKeyPressed(controls[3])) {
+		Player::_position.y += Player::_speed * (float)dt;
+	}
+
 	Entity::update(dt);
 }
 
