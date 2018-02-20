@@ -18,7 +18,7 @@ void Load() {
 	for (int r = 0; r < invaders_rows; ++r) {
 		auto rect = IntRect(r * 32, r* 32, 32, 32);
 		for (int c = 0; c < invaders_columns; ++c) {
-			Vector2f position = {c*50+10, r*50+10};
+			Vector2f position = {c*50.0+10.0, r*50.0+10.0};
 			auto inv = new Invader(rect, position);
 			ships.push_back(inv);
 		}

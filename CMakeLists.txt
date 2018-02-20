@@ -16,6 +16,12 @@ add_subdirectory("lib/sfml")
 set(SFML_INCS "lib/sfml/include")
 link_directories("${CMAKE_BINARY_DIR}/lib/sfml/lib")
 
+## Tile loader ##
+file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader/*.cpp lib_tile_level_loader/*.h)
+add_library(lib_tile_level_loader STATIC ${SOURCE_FILES})
+target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/" PRIVATE ${SFML_INCS})
+target_link_libraries(lib_tile_level_loader sfml-graphics)
+
 #### Practical 1 ####
 file(GLOB_RECURSE SOURCES practical_1/*.cpp practical_1/*.h)
 add_executable(PRACTICAL_1 ${SOURCES})
@@ -46,10 +52,6 @@ add_dependencies(PRACTICAL_2_INVADERS copy_resources)
 file(GLOB_RECURSE SOURCES practical_3/*.cpp practical_3/*.h)
 add_executable(PRACTICAL_3_MAZE ${SOURCES} )
 target_include_directories(PRACTICAL_3_MAZE SYSTEM PRIVATE ${SFML_INCS})
-target_link_libraries(PRACTICAL_3_MAZE sfml-graphics)
-
-## Tile loader ##
-file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader/*.cpp lib_tile_level_loader/*.h)
-add_library(lib_tile_level_loader STATIC ${SOURCE_FILES})
-target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/")
-target_link_libraries(lib_tile_level_loader sfml-graphics)
+target_link_libraries(PRACTICAL_3_MAZE lib_tile_level_loader sfml-graphics)
+add_dependencies(PRACTICAL_3_MAZE copy_resources)
+set_target_properties(PRACTICAL_3_MAZE PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
