@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include"maths.h"
 
 #define ls LevelSystem
 
@@ -16,11 +17,13 @@ public:
 	static sf::Color getColor(TILE t);
 	static void setColor(TILE t, sf::Color c);
 	// get tile at grid coordinate
-	static TILE getTile(sf::Vector2f);
+	static TILE getTile(sf::Vector2ul);
 	// Get Screenspace coordinates of tile
-	static sf::Vector2f getTilePosition(sf::Vector2f);
+	static sf::Vector2f getTilePosition(sf::Vector2ul);
 	// Get the tile at screenspace position
 	static TILE getTileAt(sf::Vector2f);
+	// Find tile of certain type
+	static std::vector<sf::Vector2ul> findTiles(TILE);
 	static size_t getHeight();
 	static size_t getWidth();
 

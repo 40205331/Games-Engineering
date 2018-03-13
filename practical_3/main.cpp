@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "player.h"
+#include "game.h"
 #include "entity.h"
 #include <iostream>
 #include "levelsystem.h"
@@ -7,12 +8,17 @@
 using namespace sf;
 using namespace std;
 
-const int gameWidth = 800;
-const int gameHeight = 600;
+std::vector<Entity *> entities;
+Player* player;
 
-Player* player = new Player();
+void Reset() {
+}
 
 void Load() {
+
+	// Player
+	player = new Player();
+	entities.push_back(player);
 
 	ls::loadLevelFile("res/maze_2.txt");
 
@@ -24,8 +30,7 @@ void Load() {
 		std::cout << endl;
 	}
 
-	Vector2f pos(gameWidth / 2, gameHeight / 2);
-	player->setPosition(pos);
+	Reset();
 }
 
 void Update(RenderWindow &window) {
@@ -46,12 +51,16 @@ void Update(RenderWindow &window) {
 		window.close();
 	}
 
-	player->update(dt);
+	for (auto &e : entities) {
+		e->update(dt);
+	}
 }
 
 void Render(RenderWindow &window) {
-	
-	player->render(window);
+	ls::render(window);
+	for (auto &e : entities) {
+		e->render(window);
+	}
 }
 
 int main() {
