@@ -25,7 +25,8 @@ target_link_libraries(lib_tile_level_loader lib_maths sfml-graphics)
 ## Maths lib
 add_library(lib_maths INTERFACE)
 target_sources(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths/maths.h")
-target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths" SYSTEM INTERFACE ${SFML_INCS}) 
+target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths" SYSTEM INTERFACE ${SFML_INCS})
+
 
 #### Practical 1 ####
 file(GLOB_RECURSE SOURCES practical_1/*.cpp practical_1/*.h)
@@ -60,3 +61,11 @@ target_include_directories(PRACTICAL_3_MAZE SYSTEM PRIVATE ${SFML_INCS})
 target_link_libraries(PRACTICAL_3_MAZE lib_tile_level_loader sfml-graphics)
 add_dependencies(PRACTICAL_3_MAZE copy_resources)
 set_target_properties(PRACTICAL_3_MAZE PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
+
+file(GLOB_RECURSE SOURCES practical_4/*.cpp practical_4/*.h)
+add_executable(PRACTICAL_4 ${SOURCES})
+target_include_directories(PRACTICAL_4 SYSTEM PRIVATE ${SFML_INCS})
+target_link_libraries(PRACTICAL_4 lib_tile_level_loader sfml-graphics)
+add_dependencies(PRACTICAL_4 copy_resources)
+set_target_properties(PRACTICAL_4 PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
+
