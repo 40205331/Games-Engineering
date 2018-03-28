@@ -1,26 +1,33 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "entity.h"
-#include "player.h"
+#include "pacman.h"
+#include "system_renderer.h"
+#include "scene.h"
 
 using namespace sf;
 using namespace std;
 
-std::vector<Entity *> entities;
-Player* player;
+// Does this goes here?
+std::shared_ptr<Scene> gameScene;
+std::shared_ptr<Scene> menuScene;
+std::shared_ptr<Scene> activeScene;
 
 void Load() {
-
-	// Player
-	player = new Player();
-	entities.push_back(player);
+	// Load Secene-local Assets
+	gameScene.reset(new GameScene());
+	menuScene.reset(new MenuScene());
+	gameScene->load();
+	menuScene->load();
+	// Start at main menu
+	//activeScene = menuScene;
+	activeScene = gameScene; // DEBUG
 }
 
 void Update(RenderWindow &window) {
 	// Reset clock, recalculate deltatime
 	static Clock clock;
 	float dt = clock.restart().asSeconds();
-//	activeScene->update(dt);
+	activeScene->update(dt);
 	// Check and consume events
 	Event event;
 	while (window.pollEvent(event)) {
@@ -33,11 +40,13 @@ void Update(RenderWindow &window) {
 	if (Keyboard::isKeyPressed(Keyboard::Escape)) {
 		window.close();
 	}
+
 }
 
 void Render(RenderWindow &window) {
-
-//	Renderer::render();
+	activeScene->render();
+	// Flush to screen
+	Renderer::render();
 }
 
 int main() {
