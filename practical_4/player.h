@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "Entity.h"
 
 class Player : public Entity {
@@ -9,4 +9,4 @@ public:
 	void update( float dt) override;
 	Player();
 	void render(sf::RenderWindow &window) const override;
-};
+};*/

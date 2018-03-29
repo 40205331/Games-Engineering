@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include <ecm.h>
 #include <SFML/Graphics.hpp>
@@ -20,4 +20,4 @@ public:
 	void setShape(Targs... params) {
 		_shape.reset(new T(params...));
 	}
-};
+};*/

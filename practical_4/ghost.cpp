@@ -1,4 +1,4 @@
-#include "ghost.h"
+/*#include "ghost.h"
 
 using namespace sf;
 using namespace std;
@@ -18,4 +18,4 @@ Ghost::Ghost()
 
 void Ghost::render(sf::RenderWindow &window) const{
 	window.draw(*_shape);
-}
+}*/

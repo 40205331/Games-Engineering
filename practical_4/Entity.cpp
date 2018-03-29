@@ -1,4 +1,4 @@
-#include "entity.h"
+/*#include "entity.h"
 
 using namespace std;
 using namespace sf;
@@ -13,4 +13,4 @@ void Entity::update(const float dt) {
 	_shape->setPosition(_position);
 }
 
-Entity::Entity(unique_ptr<Shape> s) : _shape(std::move(s)) {}
+Entity::Entity(unique_ptr<Shape> s) : _shape(std::move(s)) {}*/

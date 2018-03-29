@@ -17,7 +17,7 @@ private:
 
 public:
 	MenuScene();
-	void update(double dt) override;
+	void update(float dt) override;
 	void render() override;
 	void load() override;
 };
@@ -30,7 +30,7 @@ private:
 
 public:
 	GameScene() = default;
-	void update(double dt) override;
+	void update(float dt) override;
 	void render() override;
 	void load() override;
 };
