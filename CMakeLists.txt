@@ -82,7 +82,7 @@ target_link_libraries(PRACTICAL_4 lib_tile_level_loader lib_ecm sfml-graphics)
 add_dependencies(PRACTICAL_4 copy_resources)
 set_target_properties(PRACTICAL_4 PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
 
-#### Practical 5 ####
+## physics
 file(GLOB_RECURSE SOURCES practical_5/*.cpp	practical_5/*.h)
 add_executable(PRACTICAL_5 ${SOURCES})
 target_include_directories(PRACTICAL_5 SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
